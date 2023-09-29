@@ -1,0 +1,72 @@
+<%-include('../layouts/header.ejs')%>
+<nav class="dashboard-navbar navbar navbar-expand-lg shadow-lg ">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold " href="#">DASHBOARD</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <form class="d-flex position-absolute top-0 end-0 mt-2 mx-3 ">
+          <input name="search" value="search" class="form-control me-2 " type="text" placeholder="Search user" aria-label="Search">
+          <button class="btn btn-success mx-3" type="submit" value="search">Search</button>
+          
+          <a class="btn btn-danger mx-3" href="/admin/homepage">HOME</a>
+          
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid  me-3 mt-5">
+  <table class="table shadow-lg">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone no</th>
+        <th scope="col">Verified</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<%
+      if(users.length>0){
+         for(let i=0;i<users.length;i++){
+            %>
+            <tr>
+                <td><%=users[i].name%></td>
+                <td><%=users[i].email%></td>
+                <td><%=users[i].mobile%></td>
+                <td><%
+                    if(users[i].is_verified ==0){
+                        %>
+                          <p>Verified</p>
+                        <%
+                    }else{
+                        %>
+                        <p>Not verified</p>
+                        <%
+                    }
+                    %></td>
+                <td><a class="btn btn-success" href="/admin/edit-user?id=<%=users[i]._id%>">Edit</a></td> 
+               <td> <a class="btn btn-danger" href="/admin/delete-user?id=<%=users[i]._id%>">Delete</a></td>
+            </tr>
+            <%
+         }
+      }else{
+       %>
+       <tr>
+        <td>Users Notfound</td>
+       </tr>
+       <%
+      }
+      %>
+
+
+
+    </tbody>
+  </table>
+</div>
+  
+<%-include('../layouts/footer.ejs')%>
